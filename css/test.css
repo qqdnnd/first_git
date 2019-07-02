@@ -1,0 +1,38 @@
+/* Transition
+ -------------------------- */
+/* gradient
+ -------------------------- */
+/* Colors
+// -------------------------- */
+/* body
+ -------------------------- */
+/* Link
+ -------------------------- */
+/* Border
+-------------------------- */
+/* Box-shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Font
+-------------------------- */
+/* clearfix
+--------------------------*/
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 100px;
+  background-color: #5b9bd1;
+}
+.text2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex: 1;
+  -webkit-box-flex: 1;
+  -moz-flex-grow: 1;
+  flex-grow: 1;
+}
+/*# sourceMappingURL=test.css.map */

@@ -1,0 +1,52 @@
+@import "../asset/css/var";
+
+html, body {
+  height: 100%;
+}
+
+.login {
+  display: none;
+  position: absolute;
+  .position(0, 0, 0, 0);
+  background: url(../images/bg.jpg) no-repeat center;
+  background-size: cover;
+  &.active {
+    display: block;
+  }
+  &-title {
+    line-height: 44px;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 20px;
+    border-bottom: @border-base;
+    margin-bottom: 20px;
+    .el-icon-edit {
+      color: @color-primary-blue;
+      margin-right: 10px;
+      font-size: 24px;
+    }
+  }
+  &-main {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    width: 320px;
+    margin-left: -160px;
+    padding: 20px;
+    background: rgba(255, 255, 255, .7);
+    box-sizing: border-box;
+    border-radius: 5px;
+    .el-input__inner {
+      padding-left: 60px;
+    }
+    .prefix-text {
+    }
+    .submit {
+      margin: 40px 0 0;
+      .el-button {
+        width: 100%;
+      }
+    }
+  }
+}
+

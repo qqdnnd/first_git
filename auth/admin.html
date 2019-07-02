@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>测试</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../asset/css/element-ui.css">
+    <link rel="stylesheet" href="../asset/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../asset/css/layui.css">
+    <link rel="stylesheet" href="../asset/css/common.css">
+    <link rel="stylesheet" href="../css/auth/admin.css">
+</head>
+<body>
+<div id="app" class="page" :class="{show: pageShow}">
+    <div class="page-title">
+        <i class="el-icon-edit"></i>列表
+        <!--  <el-upload
+                  class="r"
+                  :action="action"
+                  :on-success="handleAvatarSuccess"
+                  :before-upload="handleBeforeAvatarUpload"
+                  name="excelFile"
+                  :show-file-list="false"
+                  :file-list="fileList">
+              <el-button size="small" type="primary">点击上传</el-button>-->
+        </el-upload>
+    </div>
+    <div class="page-main">
+        <div class="page-main-toolbar">
+            <el-input v-model="searchParam.company" placeholder="请输入企业名" @keyup.enter.native="handleSearch"></el-input>
+            <el-input v-model="searchParam.realname" placeholder="请输入联系人" @keyup.enter.native="handleSearch"></el-input>
+            <el-input v-model="searchParam.telphone" placeholder="请输入联系电话"
+                      @keyup.enter.native="handleSearch"></el-input>
+            <el-select v-model="searchData.province" clearable placeholder="请选择省份">
+                <el-option
+                        v-for="item in provinceList"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id">
+                </el-option>
+            </el-select>
+            <el-select v-model="searchData.city" clearable placeholder="请选择城市">
+                <el-option
+                        v-for="item in cityList"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id">
+                </el-option>
+            </el-select>
+            <el-button type="primary" @click="handleSearch">搜索</el-button>
+        </div>
+        <div class="page-main-handle">
+            <el-tag>新增</el-tag>
+            <el-tag type="success">删除</el-tag>
+            <el-tag type="info">标签三</el-tag>
+            <el-tag type="warning">标签四</el-tag>
+            <el-tag type="danger">标签五</el-tag>
+        </div>
+        <el-table
+                ref="multipleTable"
+                :data="dataList"
+                tooltip-effect="dark"
+                @selection-change="handleSelectionChange">
+            <el-table-column
+                    sortable
+                    type="selection"
+            >
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    label="ID"
+                    prop="id"
+                    width="60"
+            >
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    prop="company"
+                    label="企业名称"
+                    width="200"
+            >
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    prop="realname"
+                    label="联系人"
+                    width="100"
+            >
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    prop="address"
+                    label="地址"
+            >
+            </el-table-column>
+            <el-table-column
+                    sortable
+                    prop="mobile"
+                    label="联系电话"
+                    width="100"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="address"
+                    label="操作"
+                    width="100"
+            >
+                <template slot-scope="scope">
+                    <el-button type="primary" size="mini" @click="handleTableItem(scope.row)">详情
+                    </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+                class="pagination"
+                layout="prev, pager, next"
+                @current-change="handleCurrentChange"
+                :current-page="dataParam.page"
+                :total="total">
+        </el-pagination>
+    </div>
+</div>
+</body>
+<script src="../asset/js/layui.all.js"></script>
+<script src="../asset/js/vue.js"></script>
+<script src="../asset/js/vue-resource.min.js"></script>
+<script src="../asset/js/element-ui.js"></script>
+<script src="../asset/js/md5.js"></script>
+<script src="../asset/js/util.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                pageShow: false,
+                promiseNum: 0,
+                searchData: {
+                    text: '',
+                    province: '',
+                    city: '',
+                    region: ''
+                },
+                total: 1,
+                searchParam: {
+                    company: '',
+                    realname: '',
+                    telphone: ''
+                },
+                dataParam: {
+                    page: 1,
+                    company: '',
+                    realname: '',
+                    telphone: ''
+                },
+                provinceList: [],
+                cityList: [],
+                dataList: [{
+                    id: 5,
+                    company: 22,
+                    realname: 44,
+                    address: 676,
+                    mobile: '15260001010'
+                }],
+                options: [],
+                value4: '',
+                multipleSelection: [],
+                fileList: [],
+                action: joggle.uploadExcelAndSave,
+                isLoading: '',
+
+            }
+        },
+        //定义事件，从缓存上取数据，速度快，但事件不可以带参数，可在html区内直接运行
+        computed: {},
+        //监听数值变动时触发的事件， value(val){}
+        watch: {},
+        //自定义事件，类似于 function aaa(e){e.target.event}
+        methods: {
+            /* ------------------- insert (增) start -------------------*/
+
+            /* ------------------- insert (增) end -------------------*/
+
+            /* ------------------- delete (删) start -------------------*/
+
+            /* ------------------- delete (删) end -------------------*/
+
+            /* ------------------- update (改) start -------------------*/
+
+            /* ------------------- update (改) end -------------------*/
+
+            /* ------------------- select (查) start -------------------*/
+            /**
+             *  查找省份
+             */
+            selectProvince: function (fn) {
+                var _this = this;
+                this.$ajax({
+                    url: joggle.getAllProvince,
+                    type: 'get',
+                    data: {},
+                    loading: true,
+                    success: function (res) {
+
+                    },
+                    error: function (res) {
+
+                    }
+                });
+            },
+            /* ------------------- select (查) end -------------------*/
+
+            /* ------------------- handle (操) start -------------------*/
+            //跳转页面
+            handleTurnPage: function (href, opt) {
+                turnToNextPage(href, opt);
+            },
+            /**
+             *  关闭当前页面
+             */
+            handleClose: function (e) {
+                parent.vm.handleRemoveTab();
+            },
+            /**
+             *  打开新页面
+             * @param id
+             */
+            handleNewPage: function (id) {
+                parent.vm.handleSonAddTab(id);
+            },
+            /**
+             *  执行搜索
+             */
+            handleSearch: function () {
+                return;
+                this.dataParam.page = 1;
+                for (var x in this.searchParam) {
+                    this.dataParam[x] = this.searchParam[x];
+                }
+                this.selectCompanyList();
+            },
+
+            handleSelectionChange: function (val) {
+                console.log(val);
+                this.multipleSelection = val;
+            },
+            /**
+             *  这里写方法的说明
+             */
+            handleCurrentChange: function (page) {
+                this.dataParam.page = page;
+                this.selectCompanyList();
+            },
+            /**
+             *  表格内容点击
+             */
+            handleTableItem: function (data) {
+                console.log(data);
+//                this.dialogVisible = true;
+                layer.open({
+                    type: 2,
+                    title: '用户信息',
+                    content: '/auth/detail/detail.html',
+                    area: ['500px', '300px'],
+                    shadeClose: true,
+                    maxmin: true
+                });
+            }
+            /* ------------------- handle (操) end -------------------*/
+            /**
+             *  这里写方法的说明
+             * @param id  这里写参数的说明
+             * @returns {string} 如果有返回值,这里写返回值的说明
+             */
+        },
+        //页面加载完成时加载指定函数块，数据变动后不变化，只运行一次
+        created: function () {},
+        //虚拟dom,各挂钩加载完成，只运行一次
+        mounted: function () {
+            var _this = this;
+            setTimeout(function () {
+                _this.pageShow = true;
+            }, 0);
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>测试</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="../../asset/css/element-ui.css">
+    <link rel="stylesheet" href="../../asset/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../asset/css/layui.css">
+    <link rel="stylesheet" href="../../asset/css/common.css">
+    <link rel="stylesheet" href="../../css/auth/detail/detail.css">
+</head>
+<body>
+<div id="app" class="page" :class="{show: pageShow}">
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-form-item label="用户名" prop="username" :error="formError.username">
+            <el-input v-model="ruleForm.username" placeholder="请输入用户名"
+                      @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+            <el-input v-model="ruleForm.password" type="password" placeholder="请输入密码"
+                      @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <el-form-item label="再次输入密码" prop="rePassword">
+            <el-input v-model="ruleForm.rePassword" type="password" placeholder="请输入再次输入密码"
+                      @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <el-form-item label="姓名" prop="realname">
+            <el-input v-model="ruleForm.realname" placeholder="请输入姓名"
+                      @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号码" prop="mobile" :error="formError.mobile">
+            <el-input v-model="ruleForm.mobile" placeholder="请输入手机号码"
+                      @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email" :error="formError.email">
+            <el-input v-model="ruleForm.email" placeholder="请输入邮箱"
+                      @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="handleSubmitForm('ruleForm')">立即创建</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+</body>
+<script src="../../asset/js/layui.all.js"></script>
+<script src="../../asset/js/vue.js"></script>
+<script src="../../asset/js/vue-resource.min.js"></script>
+<script src="../../asset/js/element-ui.js"></script>
+<script src="../../asset/js/md5.js"></script>
+<script src="../../asset/js/util.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                pageShow: true,
+                dialogVisible: false,
+                ruleForm: {
+                    username: '',
+                    password: '',
+                    rePassword: '',
+                    realname: '',
+                    mobile: '',
+                    email: ''
+                },
+                rules: {
+                    username: [
+                        {required: true, message: '请输入用户名', trigger: 'blur'},
+                    ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'blur'},
+                    ],
+                    rePassword: [
+                        {required: true, message: '请再次输入密码', trigger: 'blur'},
+                        {
+                            trigger: 'blur',
+                            validator: function (rule, value, callback) {
+                                if (value !== this.ruleForm.password) {
+                                    callback(new Error('两次密码不一致'));
+                                } else {
+                                    callback();
+                                }
+                            }
+                        }
+                    ],
+                    realname: [
+                        {required: true, message: '请输入姓名', trigger: 'blur'},
+                    ],
+                    mobile: [
+                        {required: true, message: '请输入手机号码', trigger: 'blur'},
+                        {
+                            pattern: janReg.isMobile,
+                            message: '请输入正确手机号码',
+                            trigger: 'blur'
+                        }
+                    ],
+                    email: [
+                        {required: true, message: '请输入邮箱', trigger: 'blur'},
+                        {
+                            pattern: janReg.isEmail,
+                            message: '请输入正确邮箱',
+                            trigger: 'blur'
+                        }
+                    ]
+                },
+                formError: {
+                    username: '',
+                    password: '',
+                    rePassword: '',
+                    realname: '',
+                    mobile: '',
+                    email: '',
+                }
+            }
+        },
+        //定义事件，从缓存上取数据，速度快，但事件不可以带参数，可在html区内直接运行
+        computed: {},
+        //监听数值变动时触发的事件， value(val){}
+        watch: {},
+        //自定义事件，类似于 function aaa(e){e.target.event}
+        methods: {
+            /* ------------------- insert (增) start -------------------*/
+
+            /* ------------------- insert (增) end -------------------*/
+
+            /* ------------------- delete (删) start -------------------*/
+
+            /* ------------------- delete (删) end -------------------*/
+
+            /* ------------------- update (改) start -------------------*/
+
+            /* ------------------- update (改) end -------------------*/
+
+            /* ------------------- select (查) start -------------------*/
+            /**
+             *  查找省份
+             */
+            selectProvince: function (fn) {
+                var _this = this;
+                this.$ajax({
+                    url: joggle.getAllProvince,
+                    type: 'get',
+                    data: {},
+                    loading: true,
+                    success: function (res) {
+
+                    },
+                    error: function (res) {
+
+                    }
+                });
+            },
+            /* ------------------- select (查) end -------------------*/
+
+            /* ------------------- handle (操) start -------------------*/
+            //跳转页面
+            handleTurnPage: function (href, opt) {
+                turnToNextPage(href, opt);
+            },
+            /**
+             *  关闭当前页面
+             */
+            handleClose: function (e) {
+                parent.vm.handleRemoveTab();
+            },
+            /**
+             *  打开新页面
+             * @param id
+             */
+            handleNewPage: function (id) {
+                parent.vm.handleSonAddTab(id);
+            },
+            /**
+             *  执行搜索
+             */
+            handleSearch: function () {
+                return;
+                this.dataParam.page = 1;
+                for (var x in this.searchParam) {
+                    this.dataParam[x] = this.searchParam[x];
+                }
+                this.selectCompanyList();
+            },
+
+            handleSelectionChange: function (val) {
+                console.log(val);
+                this.multipleSelection = val;
+            },
+            /**
+             *  这里写方法的说明
+             */
+            handleCurrentChange: function (page) {
+                this.dataParam.page = page;
+                this.selectCompanyList();
+            },
+            /**
+             *  表格内容点击
+             */
+            /**
+             *  提交并验证表单
+             * @param formName
+             */
+            handleSubmitForm: function (formName) {
+                this.$refs[formName].validate(function(valid){
+                    console.log(valid);
+                    /*
+                    if(valid) {
+                        var loading = this.$loading();
+
+                        for (let x in this.formError) {
+                            this.formError[x] = '';
+                        }
+                        let formData = Object.assign({}, this.ruleForm);
+                        delete formData.rePassword;
+                        this.$ajax(
+                            joggle.doRegist,
+                            formData,
+                            loading,
+                            (data) = > {
+                            loading.close();
+                        if (data.code === 'ok') {
+                            this.$message({
+                                message: data.msg,
+                                type: 'success',
+                                onClose: () = > {
+                                turnToNextPage('list.html');
+                        }
+                        })
+                            ;
+                        } else {
+                            let target = data.code === 'user_exist' ? 'username' :
+                                data.code === 'mobile_exist' ? 'mobile' :
+                                    data.code === 'email_exist' ? 'email' : '';
+                            if (target) {
+                                this.formError[target] = data.msg;
+                            }
+                        }
+                    }
+                    )
+                        ;
+                    }
+                */}
+            )
+                ;
+            },
+            resetForm: function (formName) {
+                this.$refs[formName].resetFields();
+            }
+            /* ------------------- handle (操) end -------------------*/
+            /**
+             *  这里写方法的说明
+             * @param id  这里写参数的说明
+             * @returns {string} 如果有返回值,这里写返回值的说明
+             */
+        },
+        //页面加载完成时加载指定函数块，数据变动后不变化，只运行一次
+        created: function () {
+
+        },
+        //虚拟dom,各挂钩加载完成，只运行一次
+        mounted: function () {
+
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,56 @@
+@import 'var';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  position: absolute;
+  .position(0, 0, 0, 0);
+  color: @color-base-black;
+  font-size: 14px;
+  font-family: @font-family-base;
+}
+
+input, textarea, keygen, select, button {
+  font-family: @font-family-base;
+}
+
+.none {
+  display: none;
+}
+
+.index {
+}
+
+.page {
+  opacity: 0;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+  &.show {
+    opacity: 1;
+  }
+}
+
+.clr {
+  zoom: 1;
+  &:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+}
+
+.data-empty {
+  line-height: 24px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.r {
+  float: right;
+}
+
+

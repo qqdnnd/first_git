@@ -1,0 +1,54 @@
+@import "../../asset/css/var";
+
+.admin {
+  display: block;
+}
+
+.page {
+  color: @color-base-black;
+  font-size: 14px;
+  &-title {
+    line-height: 44px;
+    font-size: 18px;
+    font-weight: bold;
+    padding-left: 20px;
+    border-bottom: @border-base;
+    margin-bottom: 20px;
+    .el-icon-edit {
+      color: @color-primary-blue;
+      margin-right: 10px;
+      font-size: 24px;
+    }
+  }
+  &-main {
+    text-align: center;
+    .page-main-toolbar {
+      text-align: left;
+      padding: 0 20px;
+      .el-input {
+        width: 150px;
+      }
+    }
+    &-handle {
+      padding: 15px 20px 5px;
+      text-align: left;
+      .el-tag{
+        cursor: pointer;
+      }
+    }
+    .el-table {
+      text-align: left;
+    }
+    .el-table__header-wrapper {
+      font-size: 12px;
+
+    }
+    .el-table__body-wrapper {
+      font-size: 12px;
+    }
+    .pagination {
+      margin-top: 20px;
+    }
+  }
+
+}

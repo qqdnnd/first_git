@@ -1,0 +1,70 @@
+/* Transition
+ -------------------------- */
+/* gradient
+ -------------------------- */
+/* Colors
+// -------------------------- */
+/* body
+ -------------------------- */
+/* Link
+ -------------------------- */
+/* Border
+-------------------------- */
+/* Box-shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Font
+-------------------------- */
+/* clearfix
+--------------------------*/
+.admin {
+  display: block;
+}
+.page {
+  color: #232d3c;
+  font-size: 14px;
+}
+.page-title {
+  line-height: 44px;
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 20px;
+  border-bottom: 1px solid #e9ecf3;
+  margin-bottom: 20px;
+}
+.page-title .el-icon-edit {
+  color: #4b8dde;
+  margin-right: 10px;
+  font-size: 24px;
+}
+.page-main {
+  text-align: center;
+}
+.page-main .page-main-toolbar {
+  text-align: left;
+  padding: 0 20px;
+}
+.page-main .page-main-toolbar .el-input {
+  width: 150px;
+}
+.page-main-handle {
+  padding: 15px 20px 5px;
+  text-align: left;
+}
+.page-main-handle .el-tag {
+  cursor: pointer;
+}
+.page-main .el-table {
+  text-align: left;
+}
+.page-main .el-table__header-wrapper {
+  font-size: 12px;
+}
+.page-main .el-table__body-wrapper {
+  font-size: 12px;
+}
+.page-main .pagination {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=admin.css.map */

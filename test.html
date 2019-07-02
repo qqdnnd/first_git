@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>测试</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="asset/css/common.css">
+    <link rel="stylesheet" href="asset/css/element-ui.css">
+    <link rel="stylesheet" href="asset/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/test.css">
+</head>
+<body>
+<div id="app" class="page" :class="{show: pageShow}">
+    <div class="page-head" @click="handleClose">关闭当前页</div>
+    <div class="page-head" @click="handleNewPage">打开新页面</div>
+    {{pageShow}}
+    <div class="test">
+        test
+    </div>
+</div>
+</body>
+<script src="asset/js/vue.js"></script>
+<script src="asset/js/vue-resource.min.js"></script>
+<script src="asset/js/element-ui.js"></script>
+<script src="asset/js/md5.js"></script>
+<script src="asset/js/util.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                visible: false,
+                pageShow: true,
+                tabList: [
+                    {
+                        id: 1
+                    },
+                    {
+                        id: 2
+                    }
+                ]
+            }
+        },
+        //定义事件，从缓存上取数据，速度快，但事件不可以带参数，可在html区内直接运行
+        computed: {},
+        //监听数值变动时触发的事件， value(val){}
+        watch: {},
+        //自定义事件，类似于 function aaa(e){e.target.event}
+        methods: {
+            /* ------------------- insert (增) start -------------------*/
+
+            /* ------------------- insert (增) end -------------------*/
+
+            /* ------------------- delete (删) start -------------------*/
+
+            /* ------------------- delete (删) end -------------------*/
+
+            /* ------------------- update (改) start -------------------*/
+
+            /* ------------------- update (改) end -------------------*/
+
+            /* ------------------- select (查) start -------------------*/
+
+            /* ------------------- select (查) end -------------------*/
+
+            /* ------------------- handle (操) start -------------------*/
+            handleClose: function (e) {
+                parent.vm.handleRemoveTab();
+            },
+            handleNewPage: function (e) {
+                parent.vm.handleSonAddTab(99);
+            }
+            /* ------------------- handle (操) end -------------------*/
+            /**
+             *  这里写方法的说明
+             * @param id  这里写参数的说明
+             * @returns {string} 如果有返回值,这里写返回值的说明
+             */
+        },
+        //页面加载完成时加载指定函数块，数据变动后不变化，只运行一次
+        created: function () {
+
+        },
+        //虚拟dom,各挂钩加载完成，只运行一次
+        mounted: function () {
+
+        }
+    })
+</script>
+</html>

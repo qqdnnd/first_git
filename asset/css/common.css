@@ -1,0 +1,70 @@
+/* Transition
+ -------------------------- */
+/* gradient
+ -------------------------- */
+/* Colors
+// -------------------------- */
+/* body
+ -------------------------- */
+/* Link
+ -------------------------- */
+/* Border
+-------------------------- */
+/* Box-shadow
+-------------------------- */
+/* Fill
+-------------------------- */
+/* Font
+-------------------------- */
+/* clearfix
+--------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: #232d3c;
+  font-size: 14px;
+  font-family: "microsoft yahei", "PingHei", "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+input,
+textarea,
+keygen,
+select,
+button {
+  font-family: "microsoft yahei", "PingHei", "Arial", "Helvetica", "Verdana", "sans-serif";
+}
+.none {
+  display: none;
+}
+.page {
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.page.show {
+  opacity: 1;
+}
+.clr {
+  zoom: 1;
+}
+.clr:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.data-empty {
+  line-height: 24px;
+  margin: 10px 0;
+  text-align: center;
+}
+.r {
+  float: right;
+}
+/*# sourceMappingURL=common.css.map */

@@ -1,0 +1,183 @@
+/* Transition
+ -------------------------- */
+@all-transition: all .2s cubic-bezier(.645, .045, .355, 1);
+@fade-only-transition: opacity .3s;
+@fade-linear-transition: opacity 200ms linear;
+@border-transition-base: border-color .2s cubic-bezier(.645, .045, .355, 1);
+@md-fade-transition: transform .3s cubic-bezier(0.23, 1, 0.32, 1) .1s,
+opacity .3s cubic-bezier(0.23, 1, 0.32, 1) .1s;
+
+/* gradient
+ -------------------------- */
+@gradient-base: linear-gradient(#3163f2, #0b98f5);
+/* Colors
+// -------------------------- */
+@color-primary-blue: #4b8dde;
+
+@color-primary: #5b9bd1;
+@color-darken-primary: darken(@color-primary, 20%);
+@color-lighten-primary: lighten(@color-primary, 20%);
+
+@color-success: #2cc068;
+@color-warning: #ff8023;
+@color-danger: #fe4438;
+@color-info: #50bfff;
+
+@color-white: #fff;
+@color-dark-white: darken(@color-white, 20%);
+@color-bg: #f0faf3;
+@color-gray-bg: #f5f5f5;
+
+@color-black: #000;
+@color-base-black: #232d3c;
+@color-base-light-black: #656d78;
+@color-base-silver: #666;
+@color-light-black: #999;
+@color-extra-light-black: #ebebeb;
+
+@color-disable-black: #eee;
+@color-disable-base: #dadada;
+/* body
+ -------------------------- */
+@body-bg-color: #f0f3fa;
+
+/* Link
+ -------------------------- */
+@link-color: @color-base-black;
+@link-hover-color: @color-primary;
+
+/* Border
+-------------------------- */
+@border-width-base: 1px;
+@border-style-base: solid;
+@border-color-base: #e9ecf3;
+@border-color-hover: @color-primary;
+@border-color-sep: #f2f2f2;
+@border-base: @border-width-base @border-style-base @border-color-base;
+@border-radius-base: 4px;
+@border-radius-small: 2px;
+@border-radius-circle: 100%;
+
+/* Box-shadow
+-------------------------- */
+@box-shadow: 0 0 10px -5px #333;
+@box-shadow-base: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+@box-shadow-danger: 0 2px 4px rgba(235, 67, 58, .12), 0 0 6px rgba(235, 67, 58, .12);
+
+@box-shadow-round: 0 0 20px rgba(0, 0, 0, .05);
+@box-shadow-top: 0 -2px 8px rgba(0, 0, 0, .05);
+@box-shadow-bottom: 0 2px 8px rgba(0, 0, 0, .05);
+/* Fill
+-------------------------- */
+@fill-base: @color-white;
+/* Font
+-------------------------- */
+@font-size-base: 14px;
+@font-size-sub: 16px;
+@font-size-main: 18px;
+@font-size-top: 24px;
+@font-color-base: @color-base-black;
+@font-color-disabled-base: @color-disable-black;
+@font-color-sep: #999;
+@font-color-gray: #b2b2b2;
+@font-family-base: "microsoft yahei", "PingHei", "Arial", "Helvetica", "Verdana", "sans-serif";
+/* clearfix
+--------------------------*/
+.clearfix() {
+  zoom: 1;
+  &:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+}
+
+@pt: 50px;
+@normal-width: 1280px;
+
+.size(@s) {
+  width: @s;
+  height: @s;
+}
+
+.ellipsis() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.position(@t,@r,@b,@l) {
+  top: @t;
+  right: @r;
+  bottom: @b;
+  left: @l;
+}
+
+.circle(@s) {
+  .size(@s);
+  border-radius: 50%;
+}
+
+.page-base() {
+  width: @normal-width;
+  margin: 0 auto;
+
+}
+
+.display(@v) {
+  & when (@v = flex) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+  }
+  display: @v;
+}
+
+.justify-content(@v) {
+  & when (@v = center) {
+    -webkit-box-pack: center;
+  }
+  & when (@v = space-between) {
+    -webkit-box-pack: justify;
+  }
+  & when (@v = flex-end) {
+    -webkit-box-pack: end;
+  }
+  & when (@v = start) {
+    -webkit-box-pack: start;
+  }
+  -moz-justify-content: @v;
+  -webkit-justify-content: @v;
+  justify-content: @v;
+}
+
+.align-items(@v) {
+  & when (@v = flex-end) {
+    align-items: end;
+  }
+  align-items: @v;
+}
+
+.flex-direction(@v) {
+  & when (@v = column) {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  }
+  & when (@v = column-reverse) {
+    -webkit-box-pack: end;
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  }
+  & when (@v = row-reverse) {
+    -webkit-box-pack: end;
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  }
+  -moz-flex-direction: @v;
+  flex-direction: @v;
+}
+
+.flex-grow(@v) {
+  -webkit-box-flex: @v;
+  -moz-flex-grow: @v;
+  flex-grow: @v;
+}

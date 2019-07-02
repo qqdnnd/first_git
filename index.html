@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="index-html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>商家后台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./asset/css/layui.css">
+    <link rel="stylesheet" href="./asset/css/element-ui.css">
+    <link rel="stylesheet" href="./asset/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./asset/css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body class="index-body">
+<div id="index" class="index" :class="{show: pageShow}">
+    <header class="index-head">
+        <div class="index-head-left">
+            <i class="fa fa-asterisk"></i>
+            这里是标题
+            <i class="fa fa-align-justify" @click="navHide=!navHide"></i>
+        </div>
+        <div class="index-head-right">
+            <div class="index-head-right-list">
+                <div class="item warn">
+                    <el-popover
+                            placement="top-start"
+                            width="200"
+                            trigger="hover">
+                        <ul class="popover index-warn">
+                            <li class="index-warn-head">你有<span class="index-warn-head-blue">5</span>条提醒</li>
+                            <li class="index-warn-item">
+                                <div class="index-warn-item-left">王思聪大战大张伟,王思聪大战大张伟,王思聪大战大张伟</div>
+                                <div class="index-warn-item-right">10天前</div>
+                            </li>
+                            <li class="index-warn-item">
+                                <div class="index-warn-item-left">王思聪大战大张伟</div>
+                                <div class="index-warn-item-right">10天前</div>
+                            </li>
+                        </ul>
+                        <span slot="reference">
+                            <i class="fa fa-bell-o"></i> 提醒 <i class="item-tag">5</i>
+                        </span>
+                    </el-popover>
+                </div>
+                <div class="item new">
+                    <el-popover
+                            placement="top-start"
+                            width="200"
+                            trigger="hover">
+                        <ul class="new-list">
+                            <li class="new-list-head">你有 <span class="new-list-head-blue">5</span> 条提醒</li>
+                            <li class="new-list-item">
+                                <div class="new-list-item-left">王思聪大战大张伟</div>
+                                <div class="new-list-item-right">10天前</div>
+                            </li>
+                        </ul>
+                        <span slot="reference">
+                            <i class="fa fa-bell-o"></i> 消息 <i class="item-tag">5</i>
+                        </span>
+                    </el-popover>
+                </div>
+                <div class="item">
+                    <el-popover
+                            placement="top-start"
+                            title="提醒"
+                            width="200"
+                            trigger="hover"
+                            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+                        <span slot="reference">
+                            <i class="fa fa-calendar"></i> 进度
+                        </span>
+                    </el-popover>
+                </div>
+                <div class="item">
+                    <i class="fa fa-bell-o"></i>
+                    开启全屏
+                </div>
+                <div class="item">
+                    <el-dropdown class="user">
+                        <span class="el-dropdown-link user-name">李狗蛋</span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <div @click="dialogUserEdit=true">个人设置</div>
+                            </el-dropdown-item>
+                            <el-dropdown-item divided>
+                                <div @click="handleExit">退出</div>
+                            </el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
+                <div class="item" @click="handleExit">
+                    <i class="fa fa-sign-out"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="index-main" :class="{'left-hide': navHide}">
+        <div class="index-main-left">
+            <div class="index-main-left-title" @click="handleAddTab">列表</div>
+            <el-menu class="index-main-left-menu" :default-active="menuActive" unique-opened>
+                <template v-for="(item,index) in pageList">
+                    <el-submenu :index="''+index" v-if="item.list.length!==0">
+                        <template slot="title"><i :class="item.roleIcon" v-if="item.roleIcon"></i>{{item.roleName}}
+                        </template>
+                        <template v-for="(item2,index2) in item.list">
+                            <el-submenu :index="''+index+'-'+index2" v-if="item2.list.length!==0">
+                                <template slot="title"><i :class="item2.roleIcon" v-if="item2.roleIcon"></i>{{item2.roleName}}
+                                </template>
+                                <el-menu-item :index="''+index+'-'+index2+'-'+index3" :key="item3.id"
+                                              @click="handleAddTab(item3)"
+                                              v-for="(item3,index3) in item2.list">
+                                    <i :class="item3.roleIcon" v-if="item3.roleIcon"></i>{{item3.roleName}}
+                                </el-menu-item>
+                            </el-submenu>
+                            <template v-else>
+                                <el-menu-item :index="''+index+'-'+index2" @click="handleAddTab(item2)">
+                                    <i :class="item2.roleIcon"></i>
+                                    <span slot="title">{{item2.roleName}}</span>
+                                </el-menu-item>
+                            </template>
+                        </template>
+                    </el-submenu>
+                    <template v-else>
+                        <el-menu-item :index="''+index" @click="handleAddTab(item)">
+                            <i :class="item.roleIcon"></i>
+                            <span slot="title">{{item.roleName}}</span>
+                        </el-menu-item>
+                    </template>
+                </template>
+            </el-menu>
+        </div>
+        <div class="index-main-right">
+            <div class="tab">
+                <div class="tab-item" v-for="(item,index) in tabList"
+                     :key="item.id"
+                     :class="{active:pageIndex === index}"
+                     @click="handleSelectTab(index)">
+                    <span class="tab-item-text">{{item.roleName}}</span>
+                    <i class="tab-item-close" @click.stop="handleRemoveTab(index)">×</i>
+                </div>
+            </div>
+            <div class="index-main-right-page">
+                <iframe :src="item.rolePath+'.html'"
+                        class="index-main-right-page-item"
+                        :class="{active:pageIndex === index}"
+                        frameborder="0"
+                        v-for="(item,index) in tabList"
+                ></iframe>
+                <!--<div class="page-item">
+
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <el-dialog
+            title="个人设置"
+            :visible.sync="dialogUserEdit"
+            width="50%">
+        <div class="">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+                <el-form-item label="用户名" prop="username" :error="formError.username">
+                    <el-input v-model="ruleForm.username" placeholder="请输入用户名"
+                              @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                    <el-input v-model="ruleForm.password" type="password" placeholder="请输入密码"
+                              @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+                </el-form-item>
+                <el-form-item label="再次输入密码" prop="rePassword">
+                    <el-input v-model="ruleForm.rePassword" type="password" placeholder="请输入再次输入密码"
+                              @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名" prop="realname">
+                    <el-input v-model="ruleForm.realname" placeholder="请输入姓名"
+                              @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号码" prop="mobile" :error="formError.mobile">
+                    <el-input v-model="ruleForm.mobile" placeholder="请输入手机号码"
+                              @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱" prop="email" :error="formError.email">
+                    <el-input v-model="ruleForm.email" placeholder="请输入邮箱"
+                              @keyup.enter.native="handleSubmitForm('ruleForm')"></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="primary" @click="handleSubmitForm('ruleForm')">立即创建</el-button>
+                    <el-button @click="dialogUserEdit = false">取 消</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+    </el-dialog>
+</div>
+</body>
+<script src="./asset/js/layui.all.js"></script>
+<script src="./asset/js/vue.js"></script>
+<script src="./asset/js/vue-resource.min.js"></script>
+<script src="./asset/js/element-ui.js"></script>
+<script src="asset/js/md5.js"></script>
+<script src="asset/js/util.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#index',
+        data: function () {
+            return {
+                visible: false,
+                pageShow: true,
+
+                //左边导航栏
+                navHide: false,
+                menuActive: '',
+                pageList: [
+                    {
+                        id: 1,
+                        roleName: '管理',
+                        roleIcon: 'fa fa-dashboard',
+                        rolePath: 'test',
+                        roleDesc: 1,
+                        list: [
+                            {
+                                id: 222,
+                                roleName: '子管理',
+                                roleIcon: 'fa fa-dashboard',
+                                rolePath: 'test',
+                                roleDesc: 1,
+                                list: [
+                                    {
+                                        id: 2333,
+                                        roleName: '子管理项',
+                                        roleIcon: 'fa fa-dashboard',
+                                        rolePath: 'test',
+                                        roleDesc: 1,
+                                        list: []
+                                    }
+                                ]
+                            },
+                            {
+                                id: 22332,
+                                roleName: '权限管理',
+                                roleIcon: 'fa fa-dashboard',
+                                rolePath: 'test',
+                                roleDesc: 1,
+                                list: []
+                            }
+                        ]
+                    },
+                    {
+                        id: 10,
+                        roleName: '管理2',
+                        roleIcon: 'fa fa-dashboard',
+                        rolePath: 'test',
+                        roleDesc: 1,
+                        list: [
+                            {
+                                id: '10-1',
+                                roleName: '子管理',
+                                roleIcon: 'fa fa-dashboard',
+                                rolePath: 'test',
+                                roleDesc: 1,
+                                list: [
+                                    {
+                                        id: '10-1-1',
+                                        roleName: '子管理项',
+                                        roleIcon: 'fa fa-dashboard',
+                                        rolePath: 'test',
+                                        roleDesc: 1,
+                                        list: []
+                                    }
+                                ]
+                            },
+                            {
+                                id: '10-2',
+                                roleName: '权限管理',
+                                roleIcon: 'fa fa-dashboard',
+                                rolePath: 'test',
+                                roleDesc: 1,
+                                list: []
+                            }
+                        ]
+                    }, {
+                        id: 99,
+                        roleName: '列表页',
+                        roleIcon: 'fa fa-dashboard',
+                        rolePath: 'auth/admin',
+                        roleDesc: 1,
+                        list: []
+                    }
+                ],
+                pageObjIndex: {},
+
+                //tab栏
+                tabList: [
+                    {
+                        id: 99,
+                        roleName: '列表页',
+                        roleIcon: 'fa fa-dashboard',
+                        rolePath: 'auth/admin',
+                        roleDesc: 1,
+                        list: []
+                    }
+                ],
+                pageIndex: 0,
+
+                //个人设置相关配置
+                dialogUserEdit: false,
+                ruleForm: {
+                    username: '',
+                    password: '',
+                    rePassword: '',
+                    realname: '',
+                    mobile: '',
+                    email: ''
+                },
+                rules: {
+                    username: [
+                        {required: true, message: '请输入用户名', trigger: 'blur'}
+                    ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'blur'}
+                    ],
+                    rePassword: [
+                        {required: true, message: '请再次输入密码', trigger: 'blur'},
+                        {
+                            trigger: 'blur',
+                            validator: function (rule, value, callback) {
+                                if (value !== this.ruleForm.password) {
+                                    callback(new Error('两次密码不一致'));
+                                } else {
+                                    callback();
+                                }
+                            }
+                        }
+                    ],
+                    realname: [
+                        {required: true, message: '请输入姓名', trigger: 'blur'}
+                    ],
+                    mobile: [
+                        {required: true, message: '请输入手机号码', trigger: 'blur'},
+                        {
+                            pattern: janReg.isMobile,
+                            message: '请输入正确手机号码',
+                            trigger: 'blur'
+                        }
+                    ],
+                    email: [
+                        {required: true, message: '请输入邮箱', trigger: 'blur'},
+                        {
+                            pattern: janReg.isEmail,
+                            message: '请输入正确邮箱',
+                            trigger: 'blur'
+                        }
+                    ]
+                },
+                formError: {
+                    username: '',
+                    password: '',
+                    rePassword: '',
+                    realname: '',
+                    mobile: '',
+                    email: ''
+                }
+            }
+        },
+        //定义事件，从缓存上取数据，速度快，但事件不可以带参数，可在html区内直接运行
+        computed: {},
+        //监听数值变动时触发的事件， value(val){}
+        watch: {},
+        //自定义事件，类似于 function aaa(e){e.target.event}
+        methods: {
+            /* ------------------- insert (增) start -------------------*/
+
+            /* ------------------- insert (增) end -------------------*/
+
+            /* ------------------- delete (删) start -------------------*/
+
+            /* ------------------- delete (删) end -------------------*/
+
+            /* ------------------- update (改) start -------------------*/
+
+            /* ------------------- update (改) end -------------------*/
+
+            /* ------------------- select (查) start -------------------*/
+
+            /* ------------------- select (查) end -------------------*/
+
+            /* ------------------- handle (操) start -------------------*/
+            //在子页面添加新页面标签
+            handleSonAddTab: function (id) {
+                this.handleAddTab(this.pageObjIndex[id]);
+            },
+            //添加新页面标签
+            handleAddTab: function (param) {
+                this.menuActive = this.pageObjIndex[param.id].index;
+                var hasId = false;
+                for (var i = 0; i < this.tabList.length; i++) {
+                    if (this.tabList[i].id === param.id) {
+                        hasId = i;
+                        break;
+                    }
+                }
+                if (typeof hasId === 'boolean') {
+                    hasId = this.tabList.length;
+                    this.tabList.push(param);
+                }
+                this.pageIndex = hasId;
+                sessionStorage.tabList = JSON.stringify(this.tabList);
+                sessionStorage.pageIndex = hasId;
+            },
+            //选中标签
+            handleSelectTab: function (index) {
+                this.pageIndex = index;
+                this.handleSonAddTab(this.tabList[index].id);
+            },
+            //移除标签
+            handleRemoveTab: function (index) {
+                index = index || index === 0 ? index : this.pageIndex;
+                if (this.pageIndex !== 0 && index <= this.pageIndex) {
+                    this.pageIndex--;
+                }
+                this.tabList.splice(index, 1);
+                if (this.tabList.length) {
+                    this.handleSelectTab(this.pageIndex);
+                    sessionStorage.tabList = JSON.stringify(this.tabList);
+                    sessionStorage.pageIndex = this.pageIndex;
+                } else {
+                    var activeList = document.querySelector('.el-menu').querySelectorAll('.is-active');
+                    activeList.forEach(function (v) {
+                        v.className = v.className.replace('is-active', '');
+                    });
+                    sessionStorage.tabList = '';
+                }
+            },
+            //退出登录
+            handleExit: function () {
+                var _this = this;
+                this.$confirm('是否要退出?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    _this.$message({
+                        type: 'success',
+                        message: '退出成功!'
+                    });
+                }).catch(function () {
+                });
+            }
+            /* ------------------- handle (操) end -------------------*/
+            /**
+             *  这里写方法的说明
+             * @param id  这里写参数的说明
+             * @returns {string} 如果有返回值,这里写返回值的说明
+             */
+        },
+        //页面加载完成时加载指定函数块，数据变动后不变化，只运行一次
+        created: function () {
+
+        },
+        //虚拟dom,各挂钩加载完成，只运行一次
+        mounted: function () {
+            var getIndexFun = function (list, indexBefore) {
+                var ret = {};
+                indexBefore = indexBefore || '';
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].list.length !== 0) {
+                        ret = Object.assign(ret, getIndexFun(list[i].list, indexBefore + i + '-'));
+                    } else {
+                        ret[list[i].id] = list[i];
+                        ret[list[i].id].index = indexBefore + i;
+                    }
+                }
+                return ret;
+            };
+            this.pageObjIndex = getIndexFun(this.pageList);
+            if (sessionStorage.tabList) {
+                this.tabList = JSON.parse(sessionStorage.tabList);
+                this.handleSelectTab(+sessionStorage.pageIndex);
+            }
+        }
+    })
+</script>
+</html>
